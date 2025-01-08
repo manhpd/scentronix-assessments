@@ -1,7 +1,10 @@
-export default function Content() {
+'use client';
+import { ReactNode } from 'react';
+
+export default function Content({ children }: { children: ReactNode }) {
     return (
-        <div >
-            <h1>Content</h1>
+        <div className="container pt-16 pl-24 pr-24">
+            {children}
         </div>
     );
 }

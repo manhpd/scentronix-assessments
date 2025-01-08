@@ -4,75 +4,60 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SubMenu from './sub-menu/sub-menu.component';
-import { useParams } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { HeaderMenuItem } from '@/lib/model/header.model';
 
-export interface HeaderData {
-    logo: {
-        src: string;
-        alt: string;
-        width: number;
-        height: number;
-    };
-    menu: {
-        label: string;
-        url: string;
-        subMenu: {
-            label: string;
-            url: string;
-        }[];
-    }[];
-}
-
-export interface HeaderMenuItem {
-    label: string;
-    url: string;
-    subMenu: {
-        label: string;
-        url: string;
-    }[];
-}
 // sample header data
 const headerData = {
     logo: {
         src: '/logo.png',
         alt: 'Next.js Logo',
-        width: 40,
-        height: 40
+        width: 100,
+        height: 100
     },
     menu: [
         {
-            label: 'Home',
-            url: '/',
+            label: 'SHOP',
+            url: '/shop',
             subMenu: [
             ]
         },
         {
-            label: 'About',
+            label: 'RECIPES',
+            url: '/recipes',
+            subMenu: [
+                {
+                    label: 'CATEGORIES',
+                    url: '/categories'
+                },
+                {
+                    label: 'COLLECTIONS',
+                    url: '/my-collections'
+                },
+                {
+                    label: 'RESOURCES',
+                    url: '/resources'
+                }
+            ]
+        },
+        {
+            label: 'ABOUT',
             url: '/about',
             subMenu: []
         },
         {
-            label: 'Recipes',
-            url: '/recipes',
-            subMenu: [
-                {
-                    label: 'Recipe 1',
-                    url: '/recipe-1'
-                },
-                {
-                    label: 'Recipe 2',
-                    url: '/recipe-2'
-                }
-            ]
+            label: 'BLOG',
+            url: '/blog',
+            subMenu: []
         }
+
     ]
 };
 
 export default function Header() {
-    const [ menuItem, setMenuItem ] = React.useState<HeaderMenuItem | undefined>(undefined);
-    const [ isShowSubMenu, setIsShowSubMenu ] = React.useState(false);
+    const [menuItem, setMenuItem] = React.useState<HeaderMenuItem | undefined>(undefined);
+    const [isShowSubMenu, setIsShowSubMenu] = React.useState(false);
 
     const pathname = usePathname();
 
@@ -85,26 +70,30 @@ export default function Header() {
         }
     }
 
+    
     return (
-        <header className="flex justify-between items-center p-4">
-            <div className="flex items-center">
-                <h1 className="text-2xl font-bold">Next.js</h1>
+        <div className="h-36">
+            <div className="flex items-center absolute top-1 left-24 pl-8 z-10">
+                <Image src={headerData.logo.src} alt={headerData.logo.alt} width={headerData.logo.width} height={headerData.logo.height} />
             </div>
-            <nav>
-                <ul className="flex space-x-4">
-                    {headerData.menu.map((item, index) => (
-                        <li key={index}>
-                            <Link className='' href={item.url} onMouseEnter={() => onMouseEnter(item)} >
-                                <p className={clsx(
-                                    'text-sm',
-                                    pathname === item.url ? 'underline' : 'no-underline'
-                                )}>{item.label}</p>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+            <header className="flex items-center pt-8 pb-8 pl-72 ">
+                <nav >
+                    <ul className="flex space-x-16 ">
+                        {headerData.menu.map((item, index) => (
+                            <li key={index}>
+                                <Link className='' href={item.url} onMouseEnter={() => onMouseEnter(item)} >
+                                    <p className={clsx(
+                                        'text-base font-bold border-b-2 hover:border-[#ab464b] transition transform hover:-translate-y-1',
+                                        pathname.includes(item.url) ? 'border-[#ab464b]' : 'border-transparent'
+                                    )}>{item.label}</p>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </header>
             <SubMenu menuItem={menuItem} isShowSubMenu={isShowSubMenu} />
-        </header>
+        </div>
+
     );
 }
