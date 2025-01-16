@@ -1,9 +1,8 @@
 
 import MyBreadcrumbs from "@/app/ui/breadcrumbs/breadcrumb.component"
 import CardCategory from "@/app/ui/card-category/card-category.component"
-import { Card } from "@mui/material"
-import Image from "next/image"
-import Link from "next/link"
+import CategoryList from "@/app/ui/category-list/category-list.component";
+import { ICategory } from "@/lib/model/category.model"
 import { redirect } from 'next/navigation'
 
 const categories = [
@@ -20,7 +19,7 @@ const categories = [
         description: 'Cake is a form of sweet food made from flour, sugar, and other ingredients, that is usually baked.'
     }
 
-]
+] as ICategory[];
 
 export default function Categories() {
     const handelClick = (slug: string) => {
@@ -31,11 +30,7 @@ export default function Categories() {
         <div>
             <MyBreadcrumbs />
             <h1 className="title text-6xl pt-8 mb-8">Categories</h1>
-            <ul className="flex gap-4">
-                {categories.map((category) => (
-                    <CardCategory key={category.slug} category={category}  />
-                ))}
-            </ul>
+            <CategoryList categories={categories} />
         </div>
     );
 }

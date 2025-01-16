@@ -1,6 +1,6 @@
-export interface Category {
+export interface ICategory {
     id: string
-    name: string
+    title: string
     slug: string
     description: string
     image: string

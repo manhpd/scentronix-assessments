@@ -1,11 +1,11 @@
-export interface Recipe {
-    id: string
-    name: string
-    slug: string
-    description: string
-    image: string
-    ingredients: string[]
-    instructions: string
-    createdAt: string
-    updatedAt: string
+export interface IRecipe {
+    title: string;
+    slug: string;
+    image: string;
+    shortDescription?: string;
+    description: string;
+    prepTime: string;
+    bakeTime: string;
+    totalTime: string;
+    yield?: string;
 }
