@@ -6,7 +6,7 @@ export default interface IRecipe {
     description: string;
     category: string;
     prepTime: string;
-    cookTime: string;
+    bakeTime: string;
     totalTime: string;
     yield: string;
 }
