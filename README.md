@@ -1,3 +1,5 @@
+## The assessments 's solutions are in this repository
+
 ## For the Frontend
 
 First, run the frontend development server:
@@ -30,3 +32,7 @@ npm install
 # start backend server
 
 npm start
+
+# unit test
+
+npm test
